@@ -16,7 +16,7 @@
 
 `npm run deploy` - опубликовать на gh-pages
 
-## Ссылка на Github Pages
+## Ссылки
 ### Проект
 https://barrrsss.github.io/movies-explorer-frontend/
 ### Макет
