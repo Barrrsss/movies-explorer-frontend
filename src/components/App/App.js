@@ -473,47 +473,51 @@ function App() {
             <div className="body">
                 <Header pathname={location.pathname} isLoggedIn={isLoggedIn} handleMenuOpen={openMenu}
                         handleOnSavedMoviesClick={handleOnSavedMoviesClick} handleOnMoviesClick={handleOnMoviesClick}/>
-                <Switch>
-                    <Route exact path="/">
-                        <Main/>
-                    </Route>
-                    <ProtectedRoute path="/profile" component={Profile} isLoggedIn={isLoggedIn}
-                                    handleLogout={handleLogout}
-                                    handleSubmit={handleEditProfile} isLoading={isLoading} isDisabled={isLoading}/>
-                    <ProtectedRoute path="/movies" component={Movies} isLoggedIn={isLoggedIn} movies={movies}
-                                    handleSearchSubmit={handleSearch} handleTumblerClick={handleTumblerClick}
-                                    saveMovie={saveMovie}
-                                    deleteMovie={deleteMovie} isFound={isFoundInMovies} isRequestDone={isRequestDone}
-                                    amountToRender={amountToRender}
-                                    handleMoreBtnClick={handleMoreBtnClick} isMoreBtnVisible={isMoreBtnVisible}
-                                    isLoading={isLoading} isDisabled={isLoading}/>
-                    <ProtectedRoute path="/saved-movies" component={SavedMovies} isLoggedIn={isLoggedIn}
-                                    movies={savedMovies}
-                                    handleSearchSubmit={handleSearchInSaved} handleTumblerClick={handleTumblerClick}
-                                    saveMovie={saveMovie}
-                                    deleteMovie={deleteMovie} isFound={isFoundInSavedMovies}
-                                    isRequestDone={isRequestInSavedDone} isLoading={isLoading}
-                                    isDisabled={isLoading}/>
+                <div  className="page">
 
-                    <Route path="/signin">
-                        <Login onLogin={handleLogin} isDisabled={isLoading}/>
-                    </Route>
-                    <Route path="/signup">
-                        <Register onRegister={handleRegister} isDisabled={isLoading}/>
-                    </Route>
-                    <Route path="*">
-                        <NotFound/>
-                    </Route>
-                </Switch>
+                    <Switch>
+                        <Route exact path="/">
+                            <Main/>
+                        </Route>
+                        <ProtectedRoute path="/profile" component={Profile} isLoggedIn={isLoggedIn}
+                                        handleLogout={handleLogout}
+                                        handleSubmit={handleEditProfile} isLoading={isLoading} isDisabled={isLoading}/>
+                        <ProtectedRoute path="/movies" component={Movies} isLoggedIn={isLoggedIn} movies={movies}
+                                        handleSearchSubmit={handleSearch} handleTumblerClick={handleTumblerClick}
+                                        saveMovie={saveMovie}
+                                        deleteMovie={deleteMovie} isFound={isFoundInMovies} isRequestDone={isRequestDone}
+                                        amountToRender={amountToRender}
+                                        handleMoreBtnClick={handleMoreBtnClick} isMoreBtnVisible={isMoreBtnVisible}
+                                        isLoading={isLoading} isDisabled={isLoading}/>
+                        <ProtectedRoute path="/saved-movies" component={SavedMovies} isLoggedIn={isLoggedIn}
+                                        movies={savedMovies}
+                                        handleSearchSubmit={handleSearchInSaved} handleTumblerClick={handleTumblerClick}
+                                        saveMovie={saveMovie}
+                                        deleteMovie={deleteMovie} isFound={isFoundInSavedMovies}
+                                        isRequestDone={isRequestInSavedDone} isLoading={isLoading}
+                                        isDisabled={isLoading}/>
 
+                        <Route path="/signin">
+                            <Login onLogin={handleLogin} isDisabled={isLoading}/>
+                        </Route>
+                        <Route path="/signup">
+                            <Register onRegister={handleRegister} isDisabled={isLoading}/>
+                        </Route>
+                        <Route path="*">
+                            <NotFound/>
+                        </Route>
+                    </Switch>
+
+
+
+                    <Menu handleMenuClose={closeAllPopups} isOpen={isMenuOpen}
+                          handleOnSavedMoviesClick={handleOnSavedMoviesClick}
+                          handleOnMoviesClick={handleOnMoviesClick} onClick={handleCLosePopupByClickOnOverlay}/>
+                    <Popup closePopup={closeAllPopups} isOpen={isPopupOpen} isFailed={isFailedRegistration}
+                           message={popupMessage}
+                           onClick={handleCLosePopupByClickOnOverlay}/>
+                </div>
                 <Footer pathname={location.pathname}/>
-
-                <Menu handleMenuClose={closeAllPopups} isOpen={isMenuOpen}
-                      handleOnSavedMoviesClick={handleOnSavedMoviesClick}
-                      handleOnMoviesClick={handleOnMoviesClick} onClick={handleCLosePopupByClickOnOverlay}/>
-                <Popup closePopup={closeAllPopups} isOpen={isPopupOpen} isFailed={isFailedRegistration}
-                       message={popupMessage}
-                       onClick={handleCLosePopupByClickOnOverlay}/>
             </div>
         </CurrentUserContext.Provider>
     );

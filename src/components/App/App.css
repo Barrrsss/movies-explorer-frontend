@@ -4,4 +4,11 @@
   background: #202020;
   font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
+  margin: 0;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+}
+.page {
+  flex-grow: 1;
 }
