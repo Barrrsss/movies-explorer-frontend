@@ -38,7 +38,9 @@ const SearchForm = ({ handleSearchSubmit, handleTumblerClick, isDisabled }) => {
                 </div>
 
             </form>
-
+            <span className="search__input-error">
+                  ^{errors && errors["movie"] && errors["movie"]}
+            </span>
         </div>
 
     );
