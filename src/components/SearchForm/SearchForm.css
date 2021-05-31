@@ -80,7 +80,9 @@
   opacity: 0.7;
   cursor: pointer;
 }
-
+.search__button:disabled {
+  opacity: 0.2;
+}
 .search__button:focus {
   outline: none;
 }

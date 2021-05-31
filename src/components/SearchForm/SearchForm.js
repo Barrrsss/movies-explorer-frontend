@@ -25,7 +25,7 @@ const SearchForm = ({ handleSearchSubmit, handleTumblerClick, isDisabled }) => {
                     <div className="search__icon"/>
                     <input className={`search__input ${errors && errors["movie"] && 'search__input_type_error'}`}
                     placeholder="Фильм" required onChange={handleChange} name="movie" type="text" disabled={isDisabled}/>
-                    <button type="submit" className="search__button"/>
+                    <button type="submit" className="search__button" disabled={!isValid}/>
                 </div>
                 <div className="search__block-two">
                     <div className="search__line"/>
