@@ -1,17 +1,17 @@
 import './Register.css';
 import Auth from '../Auth/Auth';
 
-const Register = ({onLogoClick, onRegister}) => {
+const Register = ({isDisabled, onRegister}) => {
     return (
         <section className="register">
             <Auth
-                onLogoClick={onLogoClick}
+                isDisabled={isDisabled}
                 greeting="Добро пожаловать!"
                 isNameVisible={true}
                 buttonText="Зарегистрироваться"
                 handleSubmit={onRegister}
                 captionText="Уже зарегистрированы? "
-                route="/signin"
+                route="/movies"
                 navLinkText="Войти"
             />
         </section>

@@ -1,16 +1,16 @@
 import Auth from '../Auth/Auth';
 import './Login.css';
 
-const Login = ({onLogoClick, onLogin}) => {
+const Login = ({ onLogin, isDisabled }) => {
     return (
         <section className="login">
             <Auth
-                onLogoClick={onLogoClick}
+                handleSubmit={onLogin}
                 greeting="Рады видеть!"
                 isNameVisible={false}
                 buttonText="Войти"
-                handleSubmit={onLogin}
-                captionText="Еще не зарегистированы?"
+                isDisabled={isDisabled}
+                captionText="Еще не зарегистированы? "
                 route="/signup"
                 navLinkText="Регистрация"
             />

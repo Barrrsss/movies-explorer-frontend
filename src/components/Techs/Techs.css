@@ -73,6 +73,7 @@
   .techs__item {
     min-width: 84px;
     min-height: 57px;
+    margin-bottom: 10px;
   }
 }
 
@@ -99,5 +100,6 @@
   .techs__item {
     min-width: 84px;
     min-height: 57px;
+    margin-bottom: 10px;
   }
 }

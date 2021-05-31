@@ -1,13 +1,23 @@
 import './SavedMovies.css';
-import {chosenCards} from '../../utils/initialCards';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 
-const SavedMovies = () => {
+const SavedMovies = ({
+                         movies,
+                         handleSearchSubmit,
+                         handleTumblerClick,
+                         saveMovie,
+                         deleteMovie,
+                         isFound,
+                         isRequestDone,
+                         isDisabled
+                     }) => {
     return (
         <section className="saved-movies">
-            <SearchForm/>
-            <MoviesCardList cardList={chosenCards} isOnSavedPage={true}/>
+            <SearchForm handleSearchSubmit={handleSearchSubmit} handleTumblerClick={handleTumblerClick}
+                        isDisabled={isDisabled}/>
+            <MoviesCardList movieList={movies} isOnSavedPage={true} saveMovie={saveMovie} deleteMovie={deleteMovie}
+                            isFound={isFound} isRequestDone={isRequestDone}/>
         </section>
     );
 };
