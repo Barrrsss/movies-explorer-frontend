@@ -4,28 +4,9 @@ const convertTime = (min) => {
   return `${Math.floor(min/60)}ч ${min % 60}м`
 }
 
-const checkMovieTitle = (movie, query) => {
-    return movie.nameRU.toLowerCase().replaceAll(/["«»]/g, '').split(' ').includes(query.toLowerCase()) ||
-        (movie.nameEN && movie.nameEN.toLowerCase().replaceAll(/["«»]/g, '').split(' ').includes(query.toLowerCase()));
-}
-
 const checkIfIsShort = (movie) => {
     return movie.duration <= 40;
 }
-
-const searchMovies = (movies,query) => {
-    const queryArr = query.toLowerCase().trim().split(' ');
-    const result = movies.filter((movie) => {
-        for(let i = 0; i < queryArr.length; i++) {
-            if(!checkMovieTitle(movie, queryArr[i])) {
-                return false;
-            }
-        }
-        return true;
-    });
-    return result;
-}
-
 function Validate(initialValues) {
   const [values, setValues] = React.useState(initialValues);
   const [errors, setErrors] = React.useState({});
@@ -51,4 +32,4 @@ function Validate(initialValues) {
 
   return { values, handleChange, errors, isValid, resetForm };
 }
-export { convertTime, Validate,  searchMovies, checkIfIsShort };
+export { convertTime, Validate, checkIfIsShort };

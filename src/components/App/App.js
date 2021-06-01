@@ -17,7 +17,7 @@ import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
 import * as auth from '../../utils/auth';
-import {checkIfIsShort, searchMovies} from '../../utils/utils';
+import {checkIfIsShort} from '../../utils/utils';
 import {
     amountToRender1024, amountToRender1280, amountToRender320,
     amountToRender768, defaultAmountToRender1024, defaultAmountToRender1280,
@@ -121,7 +121,7 @@ function App() {
                         if (res) {
                             setCurrentUser({email: res.email, name: res.name, _id: res._id});
                             setIsLoggedIn(true);
-                            history.push('/movies');
+                            history.push('/');
                         } else {
                             setIsLoggedIn(false);
                             history.push('/');
@@ -131,10 +131,18 @@ function App() {
             }
         }
         handleTokenCheck();
-        localStorage.removeItem('movies');
     }, [history]);
 
+    useEffect(() => {
+        const localMovies = JSON.parse(localStorage.getItem('movies'));
+        if (isLoggedIn) {
+            if (localMovies) {
+                console.log(localMovies);
+                setMovies(localMovies);
 
+            }
+        }
+    }, [isLoggedIn])
     const updateMovies = (movies, isShortFilm) => {
         const amount = checkWidth();
         const moviesWithSavedOnes = movies.map((movie) => {
@@ -150,7 +158,11 @@ function App() {
             setMovies(moviesWithSavedOnes);
         }
     };
-
+    const filterMovies = (movies, query) => {
+        const regex = new RegExp(query, 'gi');
+        return movies.filter((movie) => {
+                return regex.test(movie.nameRU);})
+    }
     const searchPromise = (query) => {
         return new Promise((resolve, reject) => {
             if (beatfilmMovies.length === 0) {
@@ -193,14 +205,14 @@ function App() {
                     .then((movies) => {
                         localStorage.setItem('beatFilmMovies', JSON.stringify(movies));
                         setBeatfilmMovies(movies);
-                        resolve(searchMovies(movies, query));
+                        resolve(filterMovies(movies, query));
                     })
                     .catch((err) => {
                         console.log(err);
                         reject(err);
                     });
             } else {
-                resolve(searchMovies(beatfilmMovies, query));
+                resolve(filterMovies(beatfilmMovies, query));
             }
         });
     }
@@ -209,7 +221,7 @@ function App() {
     const searchInSavedPromise = (query) => {
         return new Promise((resolve, reject) => {
             if (savedMovies) {
-                resolve(searchMovies(savedMovies, query))
+                resolve(filterMovies(savedMovies, query))
             } else {
                 reject(movieSearchFailedMessage);
             }
@@ -468,6 +480,7 @@ function App() {
             isOnSavedPage ? filterShortFilmsInSaved(isChecked) : filterShortFilms(isChecked);
         }
     }
+
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="body">
