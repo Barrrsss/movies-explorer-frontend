@@ -132,7 +132,7 @@
   outline: none;
 }
 
-.profile__button_disabled {
+.profile__button:disabled {
   opacity: 0.2;
 }
 

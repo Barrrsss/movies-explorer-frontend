@@ -4,7 +4,7 @@ const Footer = ({pathname}) => {
 
   return(
     <footer className={`footer
-    ${(pathname === '/signin' || pathname==='/signup') && 'footer_invisible'}`}>
+    ${(pathname === '/movies' || pathname === '/'|| pathname === '/saved-movies' || pathname === '/profile') && 'footer_visible'}`}>
       <div className="footer__container">
         <p className="footer__text">Учебный проект Яндекс.Практикум х BeatFilm</p>
         <div className="footer__info">

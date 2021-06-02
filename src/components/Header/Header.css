@@ -1,5 +1,5 @@
 .header {
-  display: flex;
+  display: none;
   justify-content: center;
   background-color: #073042;
   min-height: 74px;
@@ -7,10 +7,11 @@
 
 .header_login {
   background-color: #202020;
+  display: flex;
 }
 
-.header_invisible {
-  display: none;
+.header_visible {
+  display: flex;
 }
 
 .header__container {

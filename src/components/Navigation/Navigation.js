@@ -2,7 +2,7 @@ import './Navigation.css';
 import {useState} from 'react';
 import {NavLink} from 'react-router-dom';
 
-const Navigation = ({handleOnMainClick, handleOnMoviesClick, handleOnAccountClick}) => {
+const Navigation = ({ handleOnSavedMoviesClick, handleOnMoviesClick }) => {
     const [isMoviesClicked, setIsMoviesClicked] = useState(false);
     const [isSavedMoviesClicked, setIsSavedMoviesClicked] = useState(false);
     const [isMainClicked, setIsMainClicked] = useState(false);
@@ -17,7 +17,7 @@ const Navigation = ({handleOnMainClick, handleOnMoviesClick, handleOnAccountClic
     }
 
     const handleSavedMoviesClick = () => {
-        handleOnMoviesClick();
+        handleOnSavedMoviesClick();
         setIsSavedMoviesClicked(true);
         setIsMoviesClicked(false);
         setIsMainClicked(false);
@@ -25,14 +25,12 @@ const Navigation = ({handleOnMainClick, handleOnMoviesClick, handleOnAccountClic
     }
 
     const handleMainClicked = () => {
-        handleOnMainClick();
         setIsMainClicked(true);
         setIsSavedMoviesClicked(false);
         setIsMoviesClicked(false);
         setIsAccountClicked(false);
     }
     const handleAccountClicked = () => {
-        handleOnMainClick();
         setIsMainClicked(false);
         setIsSavedMoviesClicked(false);
         setIsMoviesClicked(false);
@@ -53,7 +51,7 @@ const Navigation = ({handleOnMainClick, handleOnMoviesClick, handleOnAccountClic
                 <NavLink to="/profile" className={`nav__account ${isAccountClicked && 'nav__link_active'}`}
                          onClick={handleAccountClicked}>
                     Аккаунт
-                    <div className="nav__account-back" onClick={handleOnAccountClick}>
+                    <div className="nav__account-back" onClick={handleAccountClicked}>
                     </div>
                 </NavLink>
             </div>

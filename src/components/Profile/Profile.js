@@ -1,60 +1,48 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useContext} from 'react';
 import {NavLink} from 'react-router-dom';
-import {emailInput, nameInput} from '../../utils/constants';
-import {validateProfile} from '../../utils/utils';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import './Profile.css';
+import {Validate} from '../../utils/utils';
 
-const Profile = ({userName, handleLogout, handleSubmit}) => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+const Profile = ({handleLogout, handleSubmit, isDisabled}) => {
+    const currentUser = useContext(CurrentUserContext);
+    const {values, handleChange, errors, isValid} = Validate({
+        name: currentUser.name,
+        email: currentUser.email
+    });
 
-    const formRef = useRef();
-
-    useEffect(() => {
-        validateProfile(formRef.current).enableValidation();
-    }, []);
-
-    const handleInputChange = (e) => {
-        switch (e.target.name) {
-            case nameInput:
-                setName(e.target.value);
-                break;
-            case emailInput:
-                setEmail(e.target.value);
-                break;
-            default:
-                console.log(`Нет такого инпута: ${e.target.name}`);
-                break;
-        }
-    }
     const onSubmit = (e) => {
         e.preventDefault();
-        if (!email || !name) {
-            return;
+        if (isValid) {
+            handleSubmit(values);
         }
-        handleSubmit();
     }
     return (
         <section className="profile">
-            <form className="profile__form" method="POST" onSubmit={onSubmit} ref={formRef}>
-                <h3 className="profile__greeting">Привет, {userName}!</h3>
+            <form className="profile__form" method="POST" onSubmit={onSubmit} noValidate>
+                <h3 className="profile__greeting">Привет, {currentUser.name} !</h3>
                 <div className="profile__inputs">
                     <p className="profile__text profile__text_type_name">Имя</p>
                     <div className="profile__area profile__area_type_name">
                         <input className="profile__input profile__input_type_name" placeholder="Имя" id="name-input"
-                               name="nameInput" value={name} onChange={handleInputChange} minLength="2" maxLength="30"
-                               required/>
-                        <span className="profile__input-error" id="name-input-error"/>
+                               name="name" onChange={handleChange} value={values.name} minLength="2" maxLength="30"
+                               required disabled={isDisabled}/>
+                        <span className="profile__input-error" id="name-input-error">
+                            {errors && errors["name"] !== "" && errors["name"]}
+                        </span>
                     </div>
                     <div className="profile__area profile__area_type_email">
                         <input className="profile__input profile__input_type_email" type="email" placeholder="Почта"
-                               id="email-input" value={email} name="emailInput" onChange={handleInputChange} required
+                               id="email-input" name="email" onChange={handleChange} value={values.email} required
+                               disabled={isDisabled}
                                pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-z]{2,})\b"/>
-                        <span className="profile__input-error" id="email-input-error"/>
+                        <span className="profile__input-error" id="email-input-error">
+                          {errors && errors["email"] !== "" && errors["email"]}
+                        </span>
                     </div>
-                    <p className="profile__text profile__text_type_email">E-mail</p>
+                    <p className="profile__text profile__text_type_email">Почта</p>
                 </div>
-                <button type="submit" className="profile__button">Редактировать</button>
+                <button type="submit" className="profile__button" disabled={!isValid}>Редактировать</button>
                 <NavLink to="/" className="profile__link" onClick={handleLogout}>Выйти из аккаунта</NavLink>
             </form>
         </section>
